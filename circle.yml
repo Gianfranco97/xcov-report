@@ -35,6 +35,17 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          
+      - run:
+          name: compile and deploy gem
+          command: |
+            cd lib/fastlane/plugin/xcov_report
+            sed -i 's/1.1.1/1.1.2/g' version.rb
+            cd ~/repo
+            gem build fastlane-plugin-xcov_report.gemspec
+            gem push fastlane-plugin-xcov_report-1.1.2.gem
+            gianfrancomanganiello1997@gmail.com
+            ${PASSWORD_RUBY_GEMS}
 
       # collect reports
       - store_test_results:
